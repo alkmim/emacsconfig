@@ -43,7 +43,7 @@
 (package-install 'company-quickhelp)
 (package-install 'sphinx-doc)
 (package-install 'realgud)
-
+(package-install 'edit-server)
 
 ; Helm mode
 (require 'helm-config)
@@ -51,6 +51,11 @@
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 (helm-mode 1)
+
+; Set up edit server. Allows to edit textareas from browsers using emacs
+; Requires installation of the extension: https://addons.mozilla.org/en-US/firefox/addon/edit-with-emacs1/
+(require 'edit-server)
+(edit-server-start)
 
 ; Openwith
 (require 'openwith)
