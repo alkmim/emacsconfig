@@ -121,6 +121,7 @@
 
 ; Enabling elpy
 (elpy-enable)
+(setq elpy-rpc-backend "jedi")
 (setq elpy-rpc-python-command "python3")
 (pyvenv-activate "/srv/virtualenv/development")
 
