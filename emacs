@@ -136,3 +136,21 @@
 
 ; Timers
 (run-with-timer 0 (* 60 1) 'recentf-save-list)
+
+;
+; Show preview of files in buffer list on other window.
+;
+(defun show-next (arg)
+  "Show next line's buffer in another window."
+  (interactive "p")
+  (next-line arg)
+  (Buffer-menu-switch-other-window))
+
+(defun show-previous (arg)
+  "Show previous line's buffer in another window."
+  (interactive "p")
+  (previous-line arg)
+  (Buffer-menu-switch-other-window))
+
+(define-key Buffer-menu-mode-map (kbd "<down>") 'show-next)
+(define-key Buffer-menu-mode-map (kbd "<up>") 'show-previous)
