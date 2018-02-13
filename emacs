@@ -16,7 +16,6 @@
 (package-install 'elpy)
 (package-install 'org)
 (package-install 'material-theme)
-(package-install 'git-gutter)
 (package-install 'magit)
 (package-install 'markdown-mode)
 (package-install 'helm)
@@ -30,6 +29,24 @@
 (package-install 'sphinx-doc)
 (package-install 'realgud)
 (package-install 'edit-server)
+
+; Set up global hacks
+(global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
+(setq linum-format "%4d \u2502 ")
+(global-linum-mode 1)
+(setq column-number-mode t)
+(load-theme 'material t)
+(setq-default fill-column 80)
+(setq browse-url-generic-program "firefox")
+(windmove-default-keybindings) ; Set moving with shift
+
+; Default Applications
+; PDFs visited in Org-mode are opened in Evince (and not in the default choice) https://stackoverflow.com/a/8836108/789593
+(add-hook 'org-mode-hook
+      '(lambda ()
+         (delete '("\\.pdf\\'" . default) org-file-apps)
+         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+
 
 ; Helm mode
 (require 'helm-config)
@@ -52,23 +69,7 @@
 ; Recentf mode
 (recentf-mode 1) ; keep a list of recently opened files
 (global-set-key (kbd "<f7>") 'recentf-open-files)
-
-; Set global key bindings
-(windmove-default-keybindings) ; Set moving with shift
-
-; Set up global hacks
-(setq linum-format "%4d \u2502 ")
-(global-linum-mode 1)
-(setq column-number-mode t)
-(load-theme 'material t)
-(setq-default fill-column 80)
-(setq browse-url-generic-program "firefox")
-
-; Default Applications
-(add-hook 'org-mode-hook
-      '(lambda ()
-         (delete '("\\.pdf\\'" . default) org-file-apps)
-         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+(run-with-timer 0 (* 60 1) 'recentf-save-list)
 
 ; Org-Mode
 (require 'org)
@@ -92,16 +93,10 @@
 
 ; Org-Mode Todo's
 (setq org-todo-keywords
-  '(
-(sequence "TODO" "BLOCKED" "DOING" "WAITING" "|" "DONE" "CANCELED")
-; (sequence "SENT" "APPROVED" "|" "PAID")
-))
-
+      '((sequence "TODO" "BLOCKED" "DOING" "WAITING" "|" "DONE" "CANCELED")))
 (setq org-todo-keyword-faces
   '(("DOING" . "yellow")
-    ("WAITING" . "yellow")
-   )
-)
+    ("WAITING" . "yellow")))
 
 ; Setup Company
 (add-hook 'after-init-hook 'global-company-mode)
@@ -134,9 +129,6 @@
 ; realgud 
 (load-library "realgud")
 (setq realgud-safe-mode nil)
-
-; Timers
-(run-with-timer 0 (* 60 1) 'recentf-save-list)
 
 ;
 ; Show preview of files in buffer list on other window.
