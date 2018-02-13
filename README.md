@@ -7,7 +7,6 @@ To bind eshell to W-a, add the following lines to rc.xml, in the <keyboard> sect
 ```
   <keyboard>
 [...]
-    </keybind>
     <keybind key="W-A">
       <action name="Execute">
         <startupnotify>
