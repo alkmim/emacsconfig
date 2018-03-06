@@ -121,7 +121,7 @@
 (setq elpy-rpc-python-command "python3")
 (pyvenv-activate "/srv/virtualenv/development")
 
-; Python sphinx autotoc
+; Python sphinx autodoc
 (add-hook 'python-mode-hook
   (lambda ()
      (require 'sphinx-doc)
