@@ -36,6 +36,7 @@
 (global-linum-mode 1)
 (setq column-number-mode t)
 (load-theme 'material t)
+(set-face-attribute 'default nil :height 90) ; The value is in 1/10pt (90 = 9pt)
 (setq-default fill-column 80)
 (setq browse-url-generic-program "firefox")
 (windmove-default-keybindings) ; Set moving with shift
