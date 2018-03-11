@@ -131,6 +131,11 @@
 (load-library "realgud")
 (setq realgud-safe-mode nil)
 
+; Multi-term
+(require 'multi-term)
+(add-to-list 'term-bind-key-alist '("C-<right>" . term-send-forward-word))
+(add-to-list 'term-bind-key-alist '("C-<left>" . term-send-backward-word))
+
 ;
 ; Show preview of files in buffer list on other window.
 ;
