@@ -88,7 +88,8 @@
 (add-hook 'org-mode-hook
   (lambda ()
     (define-key org-mode-map "\C-RET" 'org-insert-heading-respect-content)
-    (define-key org-mode-map (kbd "<C-t>") 'org-todo)))
+    (define-key org-mode-map (kbd "<C-t>") 'org-todo)
+    (linum-mode -1)))
 
 (setq org-agenda-files (list "~/Documents/orgmode/"))
 
