@@ -136,6 +136,9 @@
 (require 'multi-term)
 (add-to-list 'term-bind-key-alist '("C-<right>" . term-send-forward-word))
 (add-to-list 'term-bind-key-alist '("C-<left>" . term-send-backward-word))
+(add-hook 'term-mode-hook
+  (lambda ()
+    (linum-mode -1)))
 
 ;
 ; Show preview of files in buffer list on other window.
