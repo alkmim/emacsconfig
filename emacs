@@ -33,6 +33,7 @@
 
 ; Set up global hacks
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
+(global-set-key (kbd "C-x b") 'ibuffer)
 (setq linum-format "%4d \u2502 ")
 (global-linum-mode 1)
 (setq column-number-mode t)
