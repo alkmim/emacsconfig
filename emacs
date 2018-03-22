@@ -74,7 +74,7 @@
 ; Recentf mode
 (recentf-mode 1) ; keep a list of recently opened files
 (global-set-key (kbd "<f7>") 'recentf-open-files)
-(run-with-timer 0 (* 60 1) 'recentf-save-list)
+(run-with-timer 0 (* 30 60) 'recentf-save-list)
 
 ; Org-Mode
 (require 'org)
