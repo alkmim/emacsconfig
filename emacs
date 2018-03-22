@@ -42,6 +42,7 @@
 (setq-default fill-column 80)
 (setq browse-url-generic-program "firefox")
 (windmove-default-keybindings) ; Set moving with shift
+(setq scroll-preserve-screen-position 1)
 
 ; Default Applications
 ; PDFs visited in Org-mode are opened in Evince (and not in the default choice) https://stackoverflow.com/a/8836108/789593
