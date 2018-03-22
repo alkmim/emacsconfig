@@ -140,6 +140,7 @@
 (add-to-list 'term-bind-key-alist '("C-c C-j" . term-line-mode)) 
 (add-hook 'term-mode-hook
   (lambda ()
+    (setq term-buffer-maximum-size 10000000)
     (linum-mode -1)))
 
 ; Tabbar
