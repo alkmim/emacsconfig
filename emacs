@@ -29,6 +29,7 @@
 (package-install 'sphinx-doc)
 (package-install 'realgud)
 (package-install 'edit-server)
+(package-install 'tabbar)
 
 ; Set up global hacks
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
@@ -139,6 +140,11 @@
 (add-hook 'term-mode-hook
   (lambda ()
     (linum-mode -1)))
+
+; Tabbar
+(require 'tabbar)
+(global-set-key [M-left] 'tabbar-backward-tab)
+(global-set-key [M-right] 'tabbar-forward-tab)
 
 ;
 ; Show preview of files in buffer list on other window.
