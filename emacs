@@ -137,6 +137,7 @@
 (require 'multi-term)
 (add-to-list 'term-bind-key-alist '("C-<right>" . term-send-forward-word))
 (add-to-list 'term-bind-key-alist '("C-<left>" . term-send-backward-word))
+(add-to-list 'term-bind-key-alist '("C-c C-j" . term-line-mode)) 
 (add-hook 'term-mode-hook
   (lambda ()
     (linum-mode -1)))
