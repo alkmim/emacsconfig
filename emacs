@@ -30,8 +30,76 @@
 (package-install 'realgud)
 (package-install 'edit-server)
 (package-install 'tabbar)
+(package-install 'exwm)
+
+; Adding a menu bar in case exwm fails to load.
+; After the exwm loads, we remove the menu bar.
+(menu-bar-mode 1)
+
+; EXWM Setup
+(require 'exwm)
+(require 'exwm-config)
+(require 'exwm-randr)
+
+(setq exwm-workspace-number 2)
+(setq exwm-randr-workspace-output-plist '(1 "HDMI-0"
+					  0 "DP-0"  ))
+(add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+             "xrandr" nil "xrandr --output HDMI-0 --right-of DP-0")))
+(exwm-randr-enable)
+
+; Make class name the buffer name
+(add-hook 'exwm-update-class-hook
+	  (lambda ()
+	    (exwm-workspace-rename-buffer exwm-class-name)))
+
+(setq exwm-manage-configurations '((t char-mode t)))
+
+(setq exwm-input-global-keys
+      `(([?\s-r] . exwm-reset)
+        ([?\s-s] . ibuffer)
+        ([?\s-m] . magit-status)
+        ([?\s-=] . list-bookmarks)
+        ([?\s-+] . (lambda ()
+		     (interactive)
+		     (bookmark-set)
+		     (bookmark-save)))
+        ([?\s-f] . helm-find-files)
+        ([?\s-o] . other-window)
+        ([?\s--] . delete-window)
+        ([?\s-z] . exwm-input-toggle-keyboard)
+        ([?\s-x] . (lambda ()
+		     (interactive)
+		     (setq TouchpadOff (shell-command-to-string "synclient -l | grep TouchpadOff | awk '{ print $3 }'"))
+		     (if (string= TouchpadOff "1\n") (shell-command "synclient TouchpadOff=0") (shell-command "synclient TouchpadOff=1"))))
+        ([?\s-&] . (lambda (command)
+		     (interactive (list (read-shell-command "$ ")))
+		     (start-process-shell-command command nil command)))
+        ([?\s-a] . (lambda ()
+		     (interactive)
+		     (start-process-shell-command "xfce4-terminal" nil "xfce4-terminal")))	
+        ([?\s-l] . (lambda ()
+		     (interactive)
+		     (start-process-shell-command "xscreensaver" nil "xscreensaver-command -lock")))
+        ([?\s-w] . (lambda ()
+		     (interactive)
+		     (start-process-shell-command "firefox" nil "firefox")))	
+        ([?\s-0] . exwm-workspace-switch)
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,(- i 1)))))
+                  (number-sequence 1 9))))
+
+(exwm-enable)
 
 ; Set up global hacks
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 (global-set-key (kbd "C-x b") 'ibuffer)
 (setq linum-format "%4d \u2502 ")
