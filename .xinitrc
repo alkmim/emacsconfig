@@ -21,6 +21,7 @@ tint2 &
 nm-applet &
 volumeicon &
 xscreensaver &
+parcellite &
 
 # For some wird reason, Pulseaudio needs to be killed and restarted to work. 
 pulseaudio -k
