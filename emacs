@@ -101,7 +101,6 @@
 (tool-bar-mode -1)
 (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
-(global-set-key (kbd "C-x b") 'ibuffer)
 (setq linum-format "%4d \u2502 ")
 (global-linum-mode 1)
 (setq column-number-mode t)
@@ -111,6 +110,26 @@
 (setq browse-url-generic-program "firefox")
 (windmove-default-keybindings) ; Set moving with shift
 (setq scroll-preserve-screen-position 1)
+
+; Setup ibuffer
+(global-set-key (kbd "C-x b") 'ibuffer)
+(setq ibuffer-saved-filter-groups
+  (quote (("default"
+    ("EXWM" (mode . exwm-mode))
+    ("org-mode" (mode . org-mode))
+    ("git" (mode . magit-status-mode))
+    ("dired" (mode . dired-mode))
+    ("emacs" (or
+              (name . "^\\*scratch\\*$")
+              (name . "^\\*Messages\\*$")
+	      (name . "^\\*Bookmark List\\*$")
+	      (name . "^\\*GNU Emacs\\*$")))
+    ("helm" (mode . helm-major-mode))))))
+
+(add-hook 'ibuffer-mode-hook
+	  (lambda ()
+	    (ibuffer-switch-to-saved-filter-groups "default")))
+
 
 ; Default Applications
 ; PDFs visited in Org-mode are opened in Evince (and not in the default choice) https://stackoverflow.com/a/8836108/789593
