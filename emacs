@@ -33,7 +33,7 @@
 (package-install 'exwm)
 
 ; Adding a menu bar in case exwm fails to load.
-; After the exwm loads, we remove the menu bar.
+; After this file is loaded, we remove the menu bar.
 (menu-bar-mode 1)
 
 ; EXWM Setup
@@ -100,7 +100,6 @@
 (exwm-enable)
 
 ; Set up global hacks
-(menu-bar-mode -1)
 (tool-bar-mode -1)
 (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
@@ -258,3 +257,6 @@
 
 (define-key Buffer-menu-mode-map (kbd "<down>") 'show-next)
 (define-key Buffer-menu-mode-map (kbd "<up>") 'show-previous)
+
+; If everything goes fine, remove the menu bar.
+(menu-bar-mode -1)
