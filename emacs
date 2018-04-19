@@ -50,10 +50,9 @@
              "xrandr" nil "xrandr --output HDMI-0 --right-of DP-0")))
 (exwm-randr-enable)
 
-; Make class name the buffer name
-(add-hook 'exwm-update-class-hook
+(add-hook 'exwm-update-title-hook
 	  (lambda ()
-	    (exwm-workspace-rename-buffer exwm-class-name)))
+	    (exwm-workspace-rename-buffer (concat (substring exwm-class-name 0 5) " - " exwm-title))))
 
 (setq exwm-manage-configurations '((t char-mode t)))
 
