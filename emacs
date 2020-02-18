@@ -31,6 +31,12 @@
 (package-install 'edit-server)
 (package-install 'tabbar)
 (package-install 'exwm)
+(package-install 'org-super-agenda)
+(package-install 'origami)
+(package-install 'use-package)
+; Required by origami integration with org-super-agenda. See https://github.com/alphapapa/org-super-agenda/issues/55#issuecomment-476685245
+(package-install 'general)
+
 
 ; Adding a menu bar in case exwm fails to load.
 ; After this file is loaded, we remove the menu bar.
@@ -202,6 +208,48 @@
 (setq org-todo-keyword-faces
   '(("DOING" . "yellow")
     ("WAITING" . "yellow")))
+
+(setq org-agenda-time-grid
+      (quote
+       ((daily today remove-match)
+        ()
+        "......" "----------------")))
+
+(setq org-agenda-log-mode-items '(closed clock state))
+(setq org-deadline-warning-days 60)
+
+(org-super-agenda-mode t)
+(require 'use-package)
+(require 'general)
+(use-package origami
+   :general (:keymaps 'org-super-agenda-header-map
+                      "TAB" #'origami-toggle-node)
+   :config
+   :hook ((org-agenda-mode . origami-mode))
+)
+
+; See https://github.com/alphapapa/org-super-agenda for documentation
+(setq org-super-agenda-groups '(
+  (:name "Done"
+   :todo "DONE"
+   :todo "CANCELLED")
+  (:name "Overdue"
+   :deadline past)
+  (:name "Due today"
+   :deadline today)
+  (:name "Due soon"
+   :deadline future)
+  (:auto-group t)
+  (:name "Waiting"
+   :todo "WAITING")
+  (:name "Urgent"
+   :priority "A")
+  (:name "Important"
+   :priority "B")
+  (:name "Wanto to do"
+   :priority "C")
+  (:auto-category t)
+))
 
 ; Setup Company
 (add-hook 'after-init-hook 'global-company-mode)
